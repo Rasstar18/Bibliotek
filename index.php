@@ -109,12 +109,28 @@ echo "fria filmer ";
 echo "<br>";
 if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
-        echo "titel: " . $row["titel"]. "<br>";
+            echo "titel: " . $row["titel"]. "<br>";
         }
     } else {
         echo "all free";
     }
     
+echo "<br>";
+echo "<br>";
+echo "<br>";
+
+echo "antal ";
+echo "<br>";
+$clac = "SELECT bok.titel, COUNT(*) FROM bok,lån WHERE bok.bokid != lån.bokid GROUP BY bok.ISBN";   
+$rescalc = $conn->query($clac);
+
+if ($rescalc->num_rows > 0) {
+    while($row = $rescalc->fetch_assoc()) {
+        echo "titel: " . $row["titel"]. " number: ". $row["COUNT(*)"]. "<br>";
+    }
+} else {
+    echo "no thing in bas";
+}
 ?>
 
 <!DOCTYPE html>
