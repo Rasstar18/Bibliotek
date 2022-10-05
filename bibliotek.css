@@ -1,0 +1,50 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+
+body{
+    position:relative;
+    background-image: url("library.png");
+    background-color: lightcoral;
+}
+h2{
+    position: absolute;
+    font-size: 70px;
+    color:antiquewhite;
+    left: 400px;
+}
+#output{
+    position:absolute;
+    width: 250px;
+    top:100px;
+    left: 100px;
+    background-color: aqua;
+}
+#bok{
+   position:absolute;
+   top:710px;
+   left:100px;
+   width:400px;
+   height:50px;
+   background-color:aquamarine;
+   text-align: center; 
+}
+#ebok{
+    position:absolute;
+    top:710px;
+    left:700px;
+    width:400px;
+    height:50px;
+    background-color:aquamarine;
+    text-align: center; 
+ }
+ #film{
+    position:absolute;
+    top:0px;
+    left:700px;
+    width:400px;
+    height:50px;
+    background-color:aquamarine;
+    text-align: center;  
+ }
