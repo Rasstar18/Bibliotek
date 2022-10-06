@@ -121,16 +121,51 @@ echo "<br>";
 
 echo "antal ";
 echo "<br>";
-$clac = "SELECT bok.titel, COUNT(*) FROM bok,lån WHERE bok.bokid != lån.bokid GROUP BY bok.ISBN";   
+$clac = "SELECT bok.ISBN, bok.titel, COUNT(*) FROM bok,lån WHERE bok.bokid != lån.bokid GROUP BY bok.ISBN";   
 $rescalc = $conn->query($clac);
 
 if ($rescalc->num_rows > 0) {
     while($row = $rescalc->fetch_assoc()) {
-        echo "titel: " . $row["titel"]. " number: ". $row["COUNT(*)"]. "<br>";
+        echo "titel: " . $row["titel"]. " ISBN: ". $row["ISBN"]. " number: ". $row["COUNT(*)"]. "<br>";
     }
 } else {
     echo "no thing in bas";
 }
+echo "<br>";
+echo "<br>";
+
+echo "antal ";
+echo "<br>";
+$clac = "SELECT ebok.ISBN, ebok.titel, COUNT(*) FROM ebok,lån WHERE ebok.ebokid != lån.ebokid GROUP BY ebok.ISBN";   
+$rescalc = $conn->query($clac);
+
+if ($rescalc->num_rows > 0) {
+    while($row = $rescalc->fetch_assoc()) {
+        echo "titel: " . $row["titel"]. " ISBN: ". $row["ISBN"]. " number: ". $row["COUNT(*)"]. "<br>";
+    }
+} else {
+    echo "no thing in bas";
+}
+echo "<br>";
+echo "<br>";
+
+echo "antal ";
+echo "<br>";
+$clac = "SELECT film.ISBN, film.titel, COUNT(*) FROM film,lån WHERE film.filmid != lån.filmid GROUP BY film.ISBN";   
+$rescalc = $conn->query($clac);
+
+if ($rescalc->num_rows > 0) {
+    while($row = $rescalc->fetch_assoc()) {
+        echo "titel: " . $row["titel"]. " ISBN: ". $row["ISBN"]. " number: ". $row["COUNT(*)"]. "<br>";
+    }
+} else {
+    echo "no thing in bas";
+}
+
+echo "<br>";
+echo "<br>";
+echo "<br>";
+
 ?>
 
 <!DOCTYPE html>
@@ -140,6 +175,12 @@ if ($rescalc->num_rows > 0) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bibliotek</title>
+    <form method = "post">
+        <input type="hidden" name="lan">
+        <input type="text" name="ISBN" placeholder="ISBN av vilken bok/ebok/film som du vill låna"><br><br>
+        <input type="text" name="personid" placeholder="personid"><br><br>
+        <input type="submit" />
+    </form>
 </head>
 <body>
     
