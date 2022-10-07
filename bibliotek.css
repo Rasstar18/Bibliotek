@@ -1,0 +1,122 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+
+body{
+    position:relative;
+    background-image: url("library.png");
+    background-repeat: no-repeat;
+    background-color: floralwhite;
+    
+}
+#start{
+    position:absolute;
+    left:120px;
+    width:1665px;
+    height:80px;
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0, 0.5);
+}
+h2{
+    position: absolute;
+    font-size: 70px;
+    color:antiquewhite;
+}
+#output{
+    position:absolute;
+    width:450px;
+    top:780px;
+    left:700px;
+    text-align:center;
+    font-size:22px;
+    background-color: white;
+    border: 2px solid black;
+}
+.sak{
+    margin-top:50px;
+}
+#bok{
+   position:absolute;
+   padding:15px 0;
+   top:710px;
+   left:10px;
+   width:400px;
+   height:20px;
+   background-color:rgba(255, 217, 151, 0.906);
+   text-align: center;
+   border-radius: 25px 25px; 
+}
+#bok:hover{
+    background-color:rgba(255, 217, 151, 0.52);
+}
+#ebok{
+    position:absolute;
+    padding:15px 0;
+    top:710px;
+    left:465px;
+    width:400px;
+    height:20px;
+    background-color:rgba(255, 217, 151, 0.906);
+    text-align: center;
+    border-radius: 25px 25px; 
+ }
+ #ebok:hover{
+    background-color:rgba(255, 217, 151, 0.52);
+}
+ #film{
+    padding:15px 0;
+    position:absolute;
+    top:710px;
+    left:920px;
+    width:400px;
+    height:20px;
+    background-color:rgba(255, 217, 151, 0.906);
+    text-align: center; 
+    border-radius: 25px 25px;
+ }
+ #film:hover{
+    background-color:rgba(255, 217, 151, 0.52);
+}
+#skapare{
+    padding:15px 0;
+    position:absolute;
+    top:710px;
+    right:10px;
+    width:500px;
+    height:20px;
+    background-color:rgba(255, 217, 151, 0.906);
+    text-align: center; 
+    border-radius: 25px 25px;
+ }
+ #skapare:hover{
+    background-color:rgba(255, 217, 151, 0.52);
+}
+#genre{
+    padding:15px 0;
+    position:absolute;
+    top:810px;
+    left:10px;
+    width:400px;
+    height:20px;
+    background-color:rgba(255, 217, 151, 0.906);
+    text-align: center; 
+    border-radius: 25px 25px;
+ }
+ #genre:hover{
+    background-color:rgba(255, 217, 151, 0.52);
+}
+#year{
+    padding:15px 0;
+    position:absolute;
+    top:810px;
+    right:10px;
+    width:450px;
+    height:20px;
+    background-color:rgba(255, 217, 151, 0.906);
+    text-align: center; 
+    border-radius: 25px 25px;
+ }
+ #year:hover{
+    background-color:rgba(255, 217, 151, 0.52);
+}
