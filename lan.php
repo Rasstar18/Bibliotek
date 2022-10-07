@@ -1,4 +1,5 @@
 <?php
+session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -15,7 +16,18 @@ echo "Connected successfully";
 echo "<br>";
 
 $ISBN = $_POST["ISBN"];
+$password = $_SESSION['pass'];
 
+
+$person = "SELECT låntagare.Personid FROM låntagare WHERE '$password' = låntagare.Lösenord";
+$perid = $conn->query($person);
+
+if ($perid->num_rows > 0){
+    while($row = $perid->fetch_assoc()) { 
+        $personid = $row["Personid"];
+
+    }
+}
 
 $free_bok = "SELECT bok.ISBN, bok.BokId, lån.lånid FROM bok LEFT JOIN lån ON bok.BokId = lån.BokId";
 $res = $conn->query($free_bok);
@@ -73,14 +85,13 @@ echo $way;
 
 if(isset($_POST["lan"])){
     
-    $personid = $_POST["personid"];
 
     if ($way == 1){
-        $sql = "INSERT INTO lån (bokid,personid,Datum_for_utlaning,Datum_for_aterlamning) VALUES ('$id', '$personid', '2012-12-03', '2013-01-09')";
+        $sql = "INSERT INTO lån (bokid,personid,Datum_för_utlaning,Datum_för_aterlamning) VALUES ('$id', '$personid', '2012-12-03', '2013-01-09')";
         if ($conn->query($sql)===TRUE){
             ?>
             <script>
-                location.replace("index.php");
+                location.replace("overview.php");
             </script>
             <?php
         }
@@ -89,11 +100,11 @@ if(isset($_POST["lan"])){
             }
     }
     elseif ($way == 2){
-        $sql = "INSERT INTO lån (ebokid,personid,datum_for_utlaning,datum_for_aterlamning) VALUES ('$id', '$personid', '2012-12-03','2013-01-09')";
+        $sql = "INSERT INTO lån (ebokid,personid,Datum_för_utlaning,Datum_för_aterlamning) VALUES ('$id', '$personid', '2012-12-03','2013-01-09')";
         if ($conn->query($sql)===TRUE){
             ?>
             <script>
-                location.replace("index.php");
+                location.replace("overview.php");
             </script>
             <?php
         }
@@ -102,11 +113,11 @@ if(isset($_POST["lan"])){
             }
     }
     elseif ($way == 3){
-        $sql = "INSERT INTO lån (filmid,personid,datum_for_utlaning,datum_for_aterlamning) VALUES ('$id', '$personid', '2012-12-03','2013-01-09')";
+        $sql = "INSERT INTO lån (filmid,personid,Datum_för_utlaning,Datum_för_aterlamning) VALUES ('$id', '$personid', '2012-12-03','2013-01-09')";
         if ($conn->query($sql)===TRUE){
             ?>
             <script>
-                location.replace("index.php");
+                location.replace("overview.php");
             </script>
             <?php
         }

@@ -23,38 +23,44 @@
 <body>
     <div id="start">
         <h2>HEJ OCH VÄLKOMMEN TILL DETTA BIBLIOTEK</h2>
-    </div>    
-    <form action="Index.php" method="POST">
+    </div> 
+    <div id="startsida">
+        <a href="index.html">Tillbaka till inlogg</a>
+    </div>   
+    <div id="lansida">
+        <a href="overview.php">till lånsida</a>
+    </div>  
+    <form action="Main.php" method="POST">
         <div id="bok">
         Sök efter bok: <input type="text" name="bok">
                        <input type="submit" name="submit" value="Sök"><br>
         </div>
     </form>
-    <form action="Index.php" method="POST">
+    <form action="Main.php" method="POST">
         <div id="ebok">
         Sök efter e-bok: <input type="text" name="ebok">
                          <input type="submit" name="submit2" value="Sök"><br>
         </div>
     </form>
-    <form action="Index.php" method="POST">
+    <form action="Main.php" method="POST">
         <div id="film">
         Sök efter film: <input type="text" name="film">
                         <input type="submit" name="submit3" value="Sök"><br>
         </div>
     </form>
-    <form action="Index.php" method="POST">
+    <form action="Main.php" method="POST">
         <div id="skapare">
         Sök efter författare/regissör: <input type="text" name="skapare">
                                        <input type="submit" name="submit4"><br>
         </div>
     </form>
-    <form action="Index.php" method="POST">
+    <form action="Main.php" method="POST">
         <div id="genre">
         Sök efter genre: <input type="text" name="genre">
                          <input type="submit" name="submit5"><br>
         </div>
     </form>
-    <form action="Index.php" method="POST">
+    <form action="Main.php" method="POST">
         <div id="year">
         Sök efter utgivningsår: <input type="text" name="year">
                          <input type="submit" name="submit6"><br>

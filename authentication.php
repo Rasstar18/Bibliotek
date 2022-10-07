@@ -1,7 +1,14 @@
-<?php      
+<?php 
+    session_start();     
     include('connection.php');  
+
+    if(isset($_POST)){
+        $_SESSION['pass'] = $_POST['pass'];
+    }
     $username = $_POST['user'];  
-    $password = $_POST['pass'];  
+    $password = $_SESSION['pass']; 
+
+
       
         //to prevent from mysqli injection  
         $username = stripcslashes($username);  
@@ -25,7 +32,8 @@
             $row = mysqli_fetch_array($result, MYSQLI_ASSOC);  
             $count = mysqli_num_rows($result);  
             if ($count == 1){
-                echo "<h1><center> Login successful (Låntagare) </center></h1>";  
+                header("Location: Main.php");  
+                exit(); 
             } else{
                 echo "<h1> Login failed. Invalid username or password.</h1>";  
             }

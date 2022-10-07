@@ -1,0 +1,33 @@
+
+#sokida{
+    position:absolute;
+    top:300px;
+    right:50px;
+    width:250px;
+    height:50px;
+    background-color:rgb(170, 152, 152);
+    text-align: center;
+    
+}
+#sok{
+    color:rgb(243, 180, 176);
+    font-size: 30px;
+}
+#enskild{
+    left: 20px;
+    position: absolute;
+    text-align: center;
+    border: 2px solid black;
+    width: 250px;
+}
+#rak{
+    left: 350px;
+    position: absolute;
+    text-align: center;
+    border: 2px solid black;
+    width: 475px;
+}
+#lonbutton{
+    left: 850px;
+    position: absolute;
+}
