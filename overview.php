@@ -209,6 +209,8 @@ echo "<br>";
 echo "<br>";
 
 ?>
+<<<<<<< HEAD:overview.php
+=======
 
 <!DOCTYPE html>
 <html lang="sv">
@@ -228,3 +230,4 @@ echo "<br>";
     
 </body>
 </html>
+>>>>>>> 5915d33aee21f8dd28606e697eea3bd7c97f0088:index.php
