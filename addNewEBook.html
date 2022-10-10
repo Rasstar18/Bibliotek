@@ -27,6 +27,10 @@
                 <label> ISBN: </label>  
                 <input type = "text" id ="isbn" name  = "isbn" />  
             </p>  
+            <p>  
+                <label> Author ID: </label>  
+                <input type = "text" id ="författare" name  = "författare" />  
+            </p>  
             <p>     
                 <input type =  "submit" id = "btn" value = "Add new book" />  
             </p>
@@ -40,7 +44,8 @@
                 var pt=document.f1.playtime.value;  
                 var ut=document.f1.utgivning.value;  
                 var is=document.f1.isbn.value;  
-                if(id.length=="" || ge.length=="" || pt.length=="" || ut.length=="" || is.length=="") {  
+                var fi=document.f1.författare.value;
+                if(id.length=="" || ge.length=="" || pt.length=="" || ut.length=="" || is.length=="" || fi.length=="") {  
                     alert("At least one of the fields are empty");  
                     return false;  
                 }                         
