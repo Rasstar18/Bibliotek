@@ -17,9 +17,10 @@ echo "<br>";
 
 $ISBN = $_POST["ISBN"];
 $password = $_SESSION['pass'];
+$username = $_SESSION['user'];
 
 
-$person = "SELECT låntagare.Personid FROM låntagare WHERE '$password' = låntagare.Lösenord";
+$person = "SELECT låntagare.Personid FROM låntagare WHERE '$password' = låntagare.Lösenord AND '$username' = låntagare.Namn ";
 $perid = $conn->query($person);
 
 if ($perid->num_rows > 0){
@@ -81,7 +82,10 @@ if ($res->num_rows > 0) {
     echo "big bug";
 }
 
-echo $way;
+echo $way. "<br>";
+echo $id. "<br>";
+echo $personid. "<br>";
+
 
 if(isset($_POST["lan"])){
     

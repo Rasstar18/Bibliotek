@@ -46,118 +46,6 @@ if ($perid->num_rows > 0){
     <div id="sokida">
         <a id="sok" href="Main.php">tillback till söksida</a>
     </div> 
-    <div id = "enskild">
-      <?php
-        $bok = "SELECT bok.titel, bok.BokId, lån.lånid FROM bok LEFT JOIN lån ON bok.BokId = lån.BokId";
-        $res = $conn->query($bok);
-        $result = $conn->query($bok);
-        
-        
-        
-        echo "Fria boker ";
-        echo "<br>";
-        if ($res->num_rows > 0) { 
-            while($row = $res->fetch_assoc()) {
-              if ($row["lånid"] == NULL){
-                echo $row["titel"]. "<br>";
-              }
-            }
-          } else {
-            echo "alla lånade";
-          }
-        
-        echo "<br>";
-        echo "<br>";
-        
-        echo "Lånade boker ";
-        echo "<br>";
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-              if ($row["lånid"] != NULL){
-                echo $row["titel"]. "<br>";
-              }
-            }
-          } else {
-            echo "alla fria";
-          }
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
-        
-        $ebok = "SELECT ebok.titel, ebok.eBokId, lån.lånid FROM ebok LEFT JOIN lån ON ebok.eBokId = lån.eBokId";
-        $res = $conn->query($ebok);
-        $result = $conn->query($ebok);
-        
-        
-        
-          echo "Fria E-boker ";
-          echo "<br>";
-          if ($res->num_rows > 0) {
-              while($row = $res->fetch_assoc()) {
-                if ($row["lånid"] == NULL){
-                  echo $row["titel"]. "<br>";
-                }
-              }
-            } else {
-              echo "alla lånade";
-            }
-          
-          echo "<br>";
-          echo "<br>";
-          
-          echo "Lånade E-boker ";
-          echo "<br>";
-          if ($result->num_rows > 0) {
-              while($row = $result->fetch_assoc()) {
-                if ($row["lånid"] != NULL){
-                  echo $row["titel"]. "<br>";
-                }
-              }
-            } else {
-              echo "alla fria";
-            }
-        
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
-        
-        $film = "SELECT film.titel, film.filmId, lån.lånid FROM film LEFT JOIN lån ON film.filmId = lån.filmId";
-        $res = $conn->query($film);
-        $result = $conn->query($film);
-        
-        
-        
-        echo "Fria filmer ";
-        echo "<br>";
-        if ($res->num_rows > 0) {
-                while($row = $res->fetch_assoc()) {
-                  if ($row["lånid"] == NULL){
-                    echo $row["titel"]. "<br>";
-                  }
-                }
-            } else {
-                echo "alla lånade";
-            }
-            
-        echo "<br>";
-        echo "<br>";
-        
-        echo "Lånade filmer ";
-        echo "<br>";
-        if ($result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                  if ($row["lånid"] != NULL){
-                    echo $row["titel"]. "<br>";
-                  }
-                }
-            } else {
-                echo "alla fria";
-            }
-      ?>
-
-    </div>
 
     <div id = "rak">
       <?php
@@ -180,10 +68,10 @@ if ($perid->num_rows > 0){
       
             if($anticalc->num_rows > 0){
                 $antirow = $anticalc->fetch_assoc();
-                echo "Titel: " . $row["titel"]. " ISBN: ". $row["ISBN"] . " antal: ". $row["COUNT(*)"] - $antirow["COUNT(*)"].  "<br>";
+                echo "Titel: " . $row["titel"].  " :Antal: ". $row["COUNT(*)"] - $antirow["COUNT(*)"]. "<br>". " ISBN: ". $row["ISBN"] . "<br>". "<br>";
             }
             else{
-              echo "Titel: " . $row["titel"]. " ISBN: ". $row["ISBN"] . " antal: ". $row["COUNT(*)"].  "<br>";
+              echo "Titel: " . $row["titel"].  " :Antal: ". $row["COUNT(*)"]. "<br>". " ISBN: ". $row["ISBN"] . "<br>". "<br>";
             }
             
             
@@ -306,6 +194,12 @@ if ($perid->num_rows > 0){
         echo "alla fria";
       }
 
+      ?>
+    </div>
+    <div id = "who">
+      <?php
+      $username = $_SESSION['user'];
+      echo "Hej ". $username
       ?>
     </div>
 

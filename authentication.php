@@ -4,8 +4,9 @@
 
     if(isset($_POST)){
         $_SESSION['pass'] = $_POST['pass'];
+        $_SESSION['user'] = $_POST['user'];
     }
-    $username = $_POST['user'];  
+    $username = $_SESSION['user'];  
     $password = $_SESSION['pass']; 
 
 
