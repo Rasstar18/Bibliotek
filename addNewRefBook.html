@@ -1,0 +1,50 @@
+<html>  
+<head>  
+    <title>Add ref book system</title>
+    <link rel = "stylesheet" type = "text/css" href = "style.css">   
+</head>  
+<body>  
+    <div id = "frm">  
+        <h1>New reference book</h1>  
+        <form name="f1" action = "addRefBookToSystem.php" onsubmit = "return validation()" method = "POST">  
+            <p>  
+                <label> Title: </label>  
+                <input type = "text" id ="titel" name  = "titel" />  
+            </p>  
+            <p>  
+                <label> Genre: </label>  
+                <input type = "text" id ="genre" name  = "genre" />  
+            </p>  
+            <p>  
+                <label> Pages: </label>  
+                <input type = "text" id ="sidor" name  = "sidor" />  
+            </p>  
+            <p>  
+                <label> Release year: </label>  
+                <input type = "text" id ="utgivning" name  = "utgivning" />  
+            </p>  
+            <p>  
+                <label> ISBN: </label>  
+                <input type = "text" id ="isbn" name  = "isbn" />  
+            </p>  
+            <p>     
+                <input type =  "submit" id = "btn" value = "Add new book" />  
+            </p>
+        </form>  
+    </div>  
+    <script>  
+            function validation()  
+            {  
+                var id=document.f1.titel.value;  
+                var ge=document.f1.genre.value;  
+                var si=document.f1.sidor.value;  
+                var ut=document.f1.utgivning.value;  
+                var is=document.f1.isbn.value;  
+                if(id.length=="" || ge.length=="" || si.length=="" || ut.length=="" || is.length=="") {  
+                    alert("At least one of the fields are empty");  
+                    return false;  
+                }                         
+            }  
+        </script>  
+</body>     
+</html>
