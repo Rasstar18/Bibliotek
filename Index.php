@@ -26,20 +26,8 @@
     </div>    
     <form action="Index.php" method="POST">
         <div id="bok">
-        Sök efter bok: <input type="text" name="bok">
+        Sök efter en titel: <input type="text" name="titel">
                        <input type="submit" name="submit" value="Sök"><br>
-        </div>
-    </form>
-    <form action="Index.php" method="POST">
-        <div id="ebok">
-        Sök efter e-bok: <input type="text" name="ebok">
-                         <input type="submit" name="submit2" value="Sök"><br>
-        </div>
-    </form>
-    <form action="Index.php" method="POST">
-        <div id="film">
-        Sök efter film: <input type="text" name="film">
-                        <input type="submit" name="submit3" value="Sök"><br>
         </div>
     </form>
     <form action="Index.php" method="POST">
@@ -63,60 +51,78 @@
     <div id="output">
         <?php
             if(!empty($_POST["submit"])){
-                $bok = $_POST["bok"];
-                $sql = "SELECT * FROM bok,skapare WHERE skapare.Personid = bok.Personid AND bok.Titel LIKE '%$bok%'";
+                $titel = $_POST["titel"];
+                $sql = "SELECT * FROM bok JOIN connect on bok.Bokid = connect.Bokid INNER JOIN skapare on skapare.Personid = connect.Personid WHERE bok.Titel LIKE '%$titel%'";
+                $sql2 = "SELECT * FROM ebok JOIN connect on ebok.Ebokid = connect.Ebokid INNER JOIN skapare on skapare.Personid = connect.Personid WHERE ebok.Titel LIKE '%$titel%'";
+                $sql3 = "SELECT * FROM film JOIN connect on film.filmid = connect.filmid INNER JOIN skapare on skapare.Personid = connect.Personid WHERE film.Titel LIKE '%$titel%'";
                 $result = $conn->query($sql);
+                $result2 = $conn->query($sql2);
+                $result3 = $conn->query($sql3);
                 if($result->num_rows > 0){
+                    $skapare = "";
                     while($row = $result->fetch_assoc()){
-                        echo "<div class='sak'>";
-                        echo "Bok: ".$row["Titel"]."<br>";
-                        echo "Genre: ".$row["Genre"]."<br>";
-                        echo "Antal sidor: ".$row["Antal_sidor"]." sidor"."<br>";
-                        echo "Utgivningsår: ".$row["Utgivningsar"]."<br>";
-                        echo "ISBN: ".$row["ISBN"]."<br>";
-                        echo "Skapare: ".$row["Namn"]."<br>";
-                        echo "</div>";
+                        $title = $row["Titel"];
+                        $sk = $row["Namn"].", ";
+                        $skapare.="".$sk;
+                        $Mediatyp = $row["Media"];
+                        $Genre = $row["Genre"];
+                        $Antal_sidor = $row["Antal_sidor"];
+                        $Utgivningsar = $row["Utgivningsar"];
+                        $ISBN = $row["ISBN"];
                     }
-                }else{
-                    echo "0 results";
+                    echo "<div class='sak'>";
+                        echo "Titel: ".$title."<br>";
+                        echo "Mediatyp: ".$Mediatyp."<br>";
+                        echo "Genre: ".$Genre."<br>";
+                        echo "Antal sidor: ".$Antal_sidor." sidor"."<br>";
+                        echo "Utgivningsår: ".$Utgivningsar."<br>";
+                        echo "ISBN: ".$ISBN."<br>";
+                        echo "Skapare: ".$skapare."<br>";
+                    echo "</div>";
                 }
-            }
-
-            if(!empty($_POST["submit2"])){
-                $ebok = $_POST["ebok"];
-                $sql = "SELECT * FROM ebok,skapare WHERE skapare.Personid = ebok.Personid AND ebok.Titel LIKE '%$ebok%'";
-                $result = $conn->query($sql);
-                if($result->num_rows > 0){
-                    while($row = $result->fetch_assoc()){
-                        echo "<div class='sak'>";
-                        echo "E-bok: ".$row["Titel"]."<br>";
-                        echo "Genre: ".$row["Genre"]."<br>";
-                        echo "Speltid: ".$row["Speltid"]." min"."<br>";
-                        echo "Utgivningsår: ".$row["Utgivningsar"]."<br>";
-                        echo "ISBN: ".$row["ISBN"]."<br>";
-                        echo "Skapare: ".$row["Namn"]."<br>";
-                        echo "</div>";
+                if($result2->num_rows > 0){
+                    $skapare = "";
+                    while($row2 = $result2->fetch_assoc()){
+                        $title = $row2["Titel"];
+                        $sk = $row2["Namn"].", ";
+                        $skapare.="".$sk;
+                        $Mediatyp = $row2["Media"];
+                        $Genre = $row2["Genre"];
+                        $Speltid = $row2["Speltid"];
+                        $Utgivningsar = $row2["Utgivningsar"];
+                        $ISBN = $row2["ISBN"];
                     }
-                }else{
-                    echo "0 results";
+                    echo "<div class='sak'>";
+                        echo "Titel: ".$title."<br>";
+                        echo "Mediatyp: ".$Mediatyp."<br>";
+                        echo "Genre: ".$Genre."<br>";
+                        echo "Speltid: ".$Speltid." min"."<br>";
+                        echo "Utgivningsår: ".$Utgivningsar."<br>";
+                        echo "ISBN: ".$ISBN."<br>";
+                        print_r("Skapare: ".$skapare."<br>");
+                    echo "</div>";
                 }
-            }
-
-            if(!empty($_POST["submit3"])){
-                $film = $_POST["film"];
-                $sql = "SELECT * FROM film,skapare WHERE skapare.Personid = film.Personid AND film.Titel LIKE '%$film%'";
-                $result = $conn->query($sql);
-                if($result->num_rows > 0){
-                    while($row = $result->fetch_assoc()){
-                        echo "<div class='sak'>";
-                        echo "Film: ".$row["Titel"]."<br>";
-                        echo "Genre: ".$row["Genre"]."<br>";
-                        echo "Speltid: ".$row["Speltid"]." min"."<br>";
-                        echo "Utgivningsår: ".$row["Utgivningsar"]."<br>";
-                        echo "ISBN: ".$row["ISBN"]."<br>";
-                        echo "Skapare: ".$row["Namn"]."<br>";
-                        echo "</div>";
+                if($result3->num_rows > 0){
+                    $skapare = "";
+                    while($row3 = $result3->fetch_assoc()){
+                        $title = $row3["Titel"];
+                        $sk = $row3["Namn"].", ";
+                        $skapare.="".$sk;
+                        $Mediatyp = $row3["Media"];
+                        $Genre = $row3["Genre"];
+                        $Speltid = $row3["Speltid"]." min";
+                        $Utgivningsar = $row3["Utgivningsar"];
+                        $ISBN = $row3["ISBN"];
                     }
+                    echo "<div class='sak'>";
+                        echo "Titel: ".$title."<br>";
+                        echo "Mediatyp: ".$Mediatyp."<br>";
+                        echo "Genre: ".$Genre."<br>";
+                        echo "Speltid: ".$Speltid." min"."<br>";
+                        echo "Utgivningsår: ".$Utgivningsar."<br>";
+                        echo "ISBN: ".$ISBN."<br>";
+                        print_r("Skapare: ".$skapare."<br>");
+                    echo "</div>";
                 }else{
                     echo "0 results";
                 }
@@ -124,9 +130,9 @@
 
             if(!empty($_POST["submit4"])){
                 $skapare = $_POST["skapare"];
-                $sql ="SELECT * FROM skapare join bok on skapare.Personid=bok.Personid where skapare.Namn LIKE '%$skapare%'";
-                $sql2 ="SELECT * FROM skapare join ebok on skapare.Personid=ebok.Personid where skapare.Namn LIKE '%$skapare%'";
-                $sql3 ="SELECT * FROM skapare join film on skapare.Personid=film.Personid where skapare.Namn LIKE '%$skapare%'";
+                $sql = "SELECT * FROM bok JOIN connect on bok.Bokid = connect.Bokid INNER JOIN skapare on skapare.Personid = connect.Personid WHERE skapare.Namn LIKE '%$skapare%'";
+                $sql2 = "SELECT * FROM ebok JOIN connect on ebok.Ebokid = connect.Ebokid INNER JOIN skapare on skapare.Personid = connect.Personid WHERE skapare.Namn LIKE '%$skapare%'";
+                $sql3 = "SELECT * FROM film JOIN connect on film.filmid = connect.filmid INNER JOIN skapare on skapare.Personid = connect.Personid WHERE skapare.Namn LIKE '%$skapare%'";
                 $result = $conn->query($sql);
                 $result2 = $conn->query($sql2);
                 $result3 = $conn->query($sql3);
@@ -135,6 +141,7 @@
                         echo "<div class='sak'>";
                         echo "Namn: ".$row["Namn"]."<br>";
                         echo "Titel: ".$row["Titel"]."<br>";
+                        echo "Mediatyp: ".$row["Media"]."<br>";
                         echo "Utgivningsår: ".$row["Utgivningsar"]."<br>";
                         echo "</div>";
                     }
@@ -144,6 +151,7 @@
                         echo "<div class='sak'>";
                         echo "Namn: ".$row2["Namn"]."<br>";
                         echo "Titel: ".$row2["Titel"]."<br>";
+                        echo "Mediatyp: ".$row2["Media"]."<br>";
                         echo "Utgivningsår: ".$row2["Utgivningsar"]."<br>";
                         echo "</div>";
                     }
@@ -153,6 +161,7 @@
                         echo "<div class='sak'>";
                         echo "Namn: ".$row3["Namn"]."<br>";
                         echo "Titel: ".$row3["Titel"]."<br>";
+                        echo "Mediatyp: ".$row3["Media"]."<br>";
                         echo "Utgivningsår: ".$row3["Utgivningsar"]."<br>";
                         echo "</div>";
                     }
@@ -163,9 +172,9 @@
 
             if(!empty($_POST["submit5"])){
                 $genre = $_POST["genre"];
-                $sql ="SELECT * FROM bok join skapare on skapare.Personid=bok.Personid where bok.Genre LIKE '%$genre%'";
-                $sql2 ="SELECT * FROM ebok join skapare on skapare.Personid=ebok.Personid where ebok.Genre LIKE '%$genre%'";
-                $sql3 ="SELECT * FROM film join skapare on skapare.Personid=film.Personid where film.Genre LIKE '%$genre%'";
+                $sql = "SELECT * FROM bok JOIN connect on bok.Bokid = connect.Bokid INNER JOIN skapare on skapare.Personid = connect.Personid WHERE bok.Genre LIKE '%$genre%'";
+                $sql2 = "SELECT * FROM ebok JOIN connect on ebok.Ebokid = connect.Ebokid INNER JOIN skapare on skapare.Personid = connect.Personid WHERE ebok.Genre LIKE '%$genre%'";
+                $sql3 = "SELECT * FROM film JOIN connect on film.filmid = connect.filmid INNER JOIN skapare on skapare.Personid = connect.Personid WHERE film.Genre LIKE '%$genre%'";
                 $result = $conn->query($sql);
                 $result2 = $conn->query($sql2);
                 $result3 = $conn->query($sql3);
@@ -173,6 +182,7 @@
                     while($row = $result->fetch_assoc()){
                         echo "<div class='sak'>";
                         echo "Titel: ".$row["Titel"]."<br>";
+                        echo "Mediatyp: ".$row["Media"]."<br>";
                         echo "Genre: ".$row["Genre"]."<br>";
                         echo "Utgivningsår: ".$row["Utgivningsar"]."<br>";
                         echo "Skapare: ".$row["Namn"]."<br>";
@@ -184,6 +194,7 @@
                     while($row2 = $result2->fetch_assoc()){
                         echo "<div class='sak'>";
                         echo "Titel: ".$row2["Titel"]."<br>";
+                        echo "Mediatyp: ".$row2["Media"]."<br>";
                         echo "Genre: ".$row2["Genre"]."<br>";
                         echo "Utgivningsår: ".$row2["Utgivningsar"]."<br>";
                         echo "Skapare: ".$row2["Namn"]."<br>";
@@ -194,6 +205,7 @@
                     while($row3 = $result3->fetch_assoc()){
                         echo "<div class='sak'>";
                         echo "Titel: ".$row3["Titel"]."<br>";
+                        echo "Mediatyp: ".$row3["Media"]."<br>";
                         echo "Genre: ".$row3["Genre"]."<br>";
                         echo "Utgivningsår: ".$row3["Utgivningsar"]."<br>";
                         echo "Skapare: ".$row3["Namn"]."<br>";
@@ -206,41 +218,77 @@
 
             if(!empty($_POST["submit6"])){
                 $year = $_POST["year"];
-                $sql ="SELECT * FROM bok join skapare on skapare.Personid=bok.Personid where bok.Utgivningsar LIKE '%$year%'";
-                $sql2 ="SELECT * FROM ebok join skapare on skapare.Personid=ebok.Personid where ebok.Utgivningsar LIKE '%$year%'";
-                $sql3 ="SELECT * FROM film join skapare on skapare.Personid=film.Personid where film.Utgivningsar LIKE '%$year%'";
+                $sql = "SELECT * FROM bok JOIN connect on bok.Bokid = connect.Bokid INNER JOIN skapare on skapare.Personid = connect.Personid WHERE bok.Utgivningsar LIKE '%$year%'";
+                $sql2 = "SELECT * FROM ebok JOIN connect on ebok.Ebokid = connect.Ebokid INNER JOIN skapare on skapare.Personid = connect.Personid WHERE ebok.Utgivningsar LIKE '%$year%'";
+                $sql3 = "SELECT * FROM film JOIN connect on film.filmid = connect.filmid INNER JOIN skapare on skapare.Personid = connect.Personid WHERE film.Utgivningsar LIKE '%$year%'";
                 $result = $conn->query($sql);
                 $result2 = $conn->query($sql2);
                 $result3 = $conn->query($sql3);
                 if($result->num_rows > 0){
+                    $skapare = "";
                     while($row = $result->fetch_assoc()){
-                        echo "<div class='sak'>";
-                        echo "Titel: ".$row["Titel"]."<br>";
-                        echo "Genre: ".$row["Genre"]."<br>";
-                        echo "Utgivningsår: ".$row["Utgivningsar"]."<br>";
-                        echo "Skapare: ".$row["Namn"]."<br>";
-                        echo "</div>";
+                        $title = $row["Titel"];
+                        $sk = $row["Namn"].", ";
+                        $skapare.="".$sk;
+                        $Mediatyp = $row["Media"];
+                        $Genre = $row["Genre"];
+                        $Antal_sidor = $row["Antal_sidor"];
+                        $Utgivningsar = $row["Utgivningsar"];
+                        $ISBN = $row["ISBN"];
                     }
+                    echo "<div class='sak'>";
+                        echo "Titel: ".$title."<br>";
+                        echo "Mediatyp: ".$Mediatyp."<br>";
+                        echo "Genre: ".$Genre."<br>";
+                        echo "Antal sidor: ".$Antal_sidor." sidor"."<br>";
+                        echo "Utgivningsår: ".$Utgivningsar."<br>";
+                        echo "ISBN: ".$ISBN."<br>";
+                        echo "Skapare: ".$skapare."<br>";
+                    echo "</div>";
                 }
                 if($result2->num_rows > 0){
+                    $skapare = "";
                     while($row2 = $result2->fetch_assoc()){
-                        echo "<div class='sak'>";
-                        echo "Titel: ".$row2["Titel"]."<br>";
-                        echo "Genre: ".$row2["Genre"]."<br>";
-                        echo "Utgivningsår: ".$row2["Utgivningsar"]."<br>";
-                        echo "Skapare: ".$row2["Namn"]."<br>";
-                        echo "</div>";
+                        $title = $row2["Titel"];
+                        $sk = $row2["Namn"].", ";
+                        $skapare.="".$sk;
+                        $Mediatyp = $row2["Media"];
+                        $Genre = $row2["Genre"];
+                        $Speltid = $row2["Speltid"];
+                        $Utgivningsar = $row2["Utgivningsar"];
+                        $ISBN = $row2["ISBN"];
                     }
+                    echo "<div class='sak'>";
+                        echo "Titel: ".$title."<br>";
+                        echo "Mediatyp: ".$Mediatyp."<br>";
+                        echo "Genre: ".$Genre."<br>";
+                        echo "Speltid: ".$Speltid." min"."<br>";
+                        echo "Utgivningsår: ".$Utgivningsar."<br>";
+                        echo "ISBN: ".$ISBN."<br>";
+                        echo "Skapare: ".$skapare."<br>";
+                    echo "</div>";
                 }
                 if($result3->num_rows > 0){
+                    $skapare = "";
                     while($row3 = $result3->fetch_assoc()){
-                        echo "<div class='sak'>";
-                        echo "Titel: ".$row3["Titel"]."<br>";
-                        echo "Genre: ".$row3["Genre"]."<br>";
-                        echo "Utgivningsår: ".$row3["Utgivningsar"]."<br>";
-                        echo "Skapare: ".$row3["Namn"]."<br>";
-                        echo "</div>";
+                        $title = $row3["Titel"];
+                        $sk = $row3["Namn"].", ";
+                        $skapare.="".$sk;
+                        $Mediatyp = $row3["Media"];
+                        $Genre = $row3["Genre"];
+                        $Speltid = $row3["Speltid"];
+                        $Utgivningsar = $row3["Utgivningsar"];
+                        $ISBN = $row3["ISBN"];
                     }
+                    echo "<div class='sak'>";
+                        echo "Titel: ".$title."<br>";
+                        echo "Mediatyp: ".$Mediatyp."<br>";
+                        echo "Genre: ".$Genre."<br>";
+                        echo "Speltid: ".$Speltid." min"."<br>";
+                        echo "Utgivningsår: ".$Utgivningsar."<br>";
+                        echo "ISBN: ".$ISBN."<br>";
+                        echo "Skapare: ".$skapare."<br>";
+                    echo "</div>";
                 }else{
                     echo "0 results";
                 }
