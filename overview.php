@@ -1,4 +1,5 @@
 <?php
+session_start();
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -16,6 +17,17 @@ echo "<br>";
 echo "<br>";
 echo "<br>";
 
+$password = $_SESSION['pass'];
+
+$person = "SELECT låntagare.Personid FROM låntagare WHERE '$password' = låntagare.Lösenord";
+$perid = $conn->query($person);
+
+if ($perid->num_rows > 0){
+    while($row = $perid->fetch_assoc()) { 
+        $personid = $row["Personid"];
+
+    }
+}
 
 
 
@@ -36,11 +48,9 @@ echo "<br>";
     </div> 
     <div id = "enskild">
       <?php
-        $free_bok = "SELECT bok.titel, bok.BokId, lån.lånid FROM bok LEFT JOIN lån ON bok.BokId = lån.BokId";
-        $res = $conn->query($free_bok);
-        
-        $lonad_bok = "SELECT bok.titel, låntagare.namn FROM bok,lån,låntagare WHERE bok.Bokid = lån.Bokid AND låntagare.Personid = lån.Personid";
-        $result = $conn->query($lonad_bok);
+        $bok = "SELECT bok.titel, bok.BokId, lån.lånid FROM bok LEFT JOIN lån ON bok.BokId = lån.BokId";
+        $res = $conn->query($bok);
+        $result = $conn->query($bok);
         
         
         
@@ -63,7 +73,9 @@ echo "<br>";
         echo "<br>";
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
-              echo $row["titel"]. " lånad av: ". $row["namn"]. "<br>";
+              if ($row["lånid"] != NULL){
+                echo $row["titel"]. "<br>";
+              }
             }
           } else {
             echo "alla fria";
@@ -73,11 +85,9 @@ echo "<br>";
         echo "<br>";
         echo "<br>";
         
-        $free_ebok = "SELECT ebok.titel, ebok.eBokId, lån.lånid FROM ebok LEFT JOIN lån ON ebok.eBokId = lån.eBokId";
-        $res = $conn->query($free_ebok);
-        
-        $lonad_ebok = "SELECT ebok.titel, låntagare.namn FROM ebok,lån,låntagare WHERE ebok.eBokId = lån.eBokId AND låntagare.Personid = lån.Personid" ;
-        $result = $conn->query($lonad_ebok);
+        $ebok = "SELECT ebok.titel, ebok.eBokId, lån.lånid FROM ebok LEFT JOIN lån ON ebok.eBokId = lån.eBokId";
+        $res = $conn->query($ebok);
+        $result = $conn->query($ebok);
         
         
         
@@ -100,7 +110,9 @@ echo "<br>";
           echo "<br>";
           if ($result->num_rows > 0) {
               while($row = $result->fetch_assoc()) {
-                echo $row["titel"]. " lånad av: ". $row["namn"]. "<br>";
+                if ($row["lånid"] != NULL){
+                  echo $row["titel"]. "<br>";
+                }
               }
             } else {
               echo "alla fria";
@@ -111,11 +123,9 @@ echo "<br>";
         echo "<br>";
         echo "<br>";
         
-        $free_film = "SELECT film.titel, film.filmId, lån.lånid FROM film LEFT JOIN lån ON film.filmId = lån.filmId";
-        $res = $conn->query($free_film);
-        
-        $lonad_film = "SELECT film.titel, låntagare.namn FROM film,lån,låntagare WHERE film.filmid = lån.filmid AND låntagare.Personid = lån.Personid";
-        $result = $conn->query($lonad_film);
+        $film = "SELECT film.titel, film.filmId, lån.lånid FROM film LEFT JOIN lån ON film.filmId = lån.filmId";
+        $res = $conn->query($film);
+        $result = $conn->query($film);
         
         
         
@@ -138,7 +148,9 @@ echo "<br>";
         echo "<br>";
         if ($result->num_rows > 0) {
                 while($row = $result->fetch_assoc()) {
-                  echo $row["titel"]. " lånad av: ". $row["namn"]. "<br>";
+                  if ($row["lånid"] != NULL){
+                    echo $row["titel"]. "<br>";
+                  }
                 }
             } else {
                 echo "alla fria";
@@ -228,9 +240,83 @@ echo "<br>";
 
       ?>
     </div>
+    <div id = "boklon">
+      <?php
+
+      echo "Dina lånade boker";
+      echo "<br>";
+      echo "<br>";
+      $bok = "SELECT bok.titel, bok.BokId, lån.lånid FROM bok LEFT JOIN lån ON bok.BokId = lån.BokId AND $personid = lån.personid";
+      $res = $conn->query($bok);
+      $result = $conn->query($bok);
+
+      if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+          if ($row["lånid"] != NULL){
+            echo $row["titel"]. "<br>";
+          }
+        }
+      } else {
+        echo "alla fria";
+      }
+
+      ?>
+    </div>
+    <div id = "eboklon">
+      <?php
+
+      echo "Dina lånade eboker";
+      echo "<br>";
+      echo "<br>";
+      $ebok = "SELECT ebok.titel, ebok.eBokId, lån.lånid FROM ebok LEFT JOIN lån ON ebok.eBokId = lån.eBokId AND $personid = lån.personid";
+      $res = $conn->query($ebok);
+      $result = $conn->query($ebok);
+
+
+      if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+          if ($row["lånid"] != NULL){
+            echo $row["titel"]. "<br>";
+          }
+        }
+      } else {
+        echo "alla fria";
+      }
+
+      ?>
+    </div>
+    <div id = "filmlon">
+      <?php
+
+      echo "Dina lånade filmer";
+      echo "<br>";
+      echo "<br>";
+      $film = "SELECT film.titel, film.filmId, lån.lånid FROM film LEFT JOIN lån ON film.filmId = lån.filmId AND $personid = lån.personid";
+      $res = $conn->query($film);
+      $result = $conn->query($film);
+
+
+      if ($result->num_rows > 0) {
+        while($row = $result->fetch_assoc()) {
+          if ($row["lånid"] != NULL){
+            echo $row["titel"]. "<br>";
+          }
+        }
+      } else {
+        echo "alla fria";
+      }
+
+      ?>
+    </div>
+
     <form  id = "lonbutton" method = "post" action="lan.php">
         <input type="hidden" name="lan">
-        <input type="text" name="ISBN" placeholder="ISBN av vilken bok/ebok/film som du vill låna"><br><br>
+        <input type="text" name="ISBN" placeholder="ISBN av vad du vill låna"><br><br>
+        <input type="submit" />
+    </form>
+    <form  id = "gebutton" method = "post" action="gelan.php">
+        <input type="hidden" name="gelan">
+        <input type="text" name="ISBN" placeholder="ISBN av vad du vill lämna tillbacka"><br><br>
         <input type="submit" />
     </form>
 </body>

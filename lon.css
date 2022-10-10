@@ -1,4 +1,8 @@
 
+*{
+    margin: 0px;
+    padding: 0px;
+}
 #sokida{
     position:absolute;
     top:300px;
@@ -19,6 +23,7 @@
     text-align: center;
     border: 2px solid black;
     width: 250px;
+    padding: 20px;
 }
 #rak{
     left: 350px;
@@ -26,8 +31,35 @@
     text-align: center;
     border: 2px solid black;
     width: 475px;
+    padding: 20px;
 }
 #lonbutton{
-    left: 850px;
+    left: 900px;
+    position: absolute;
+}
+#gebutton{
+    left: 900px;
+    top: 150px;
+    position: absolute;
+}
+#boklon{
+    right: 30px;
+    padding: 10px;
+    text-align: center;
+    border: 2px solid black;
+    position: absolute;
+}
+#eboklon{
+    right: 200px;
+    padding: 10px;
+    text-align: center;
+    border: 2px solid black;
+    position: absolute;
+}
+#filmlon{
+    right: 370px;
+    padding: 10px;
+    text-align: center;
+    border: 2px solid black;
     position: absolute;
 }
