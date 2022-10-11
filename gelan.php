@@ -7,6 +7,7 @@ $dbname = "bibliotek";
 $way = 0;
 $id = "";
 
+
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
@@ -15,12 +16,12 @@ if ($conn->connect_error) {
 echo "Connected successfully";
 echo "<br>";
 
+
 $ISBN = $_POST["ISBN"];
 $password = $_SESSION['pass'];
 $username = $_SESSION['user'];
 
-
-$person = "SELECT låntagare.Personid FROM låntagare WHERE '$password' = låntagare.Lösenord AND '$username' = låntagare.Namn ";
+$person = "SELECT låntagare.Personid FROM låntagare WHERE '$password' = låntagare.Lösenord AND '$username' = låntagare.Namn";
 $perid = $conn->query($person);
 
 if ($perid->num_rows > 0){
@@ -30,11 +31,12 @@ if ($perid->num_rows > 0){
     }
 }
 
-$free_bok = "SELECT bok.ISBN, bok.BokId, lån.lånid FROM bok LEFT JOIN lån ON bok.BokId = lån.BokId";
-$res = $conn->query($free_bok);
+
+$bok = "SELECT bok.ISBN, bok.BokId, lån.lånid FROM bok LEFT JOIN lån ON bok.BokId = lån.BokId";
+$res = $conn->query($bok);
 if ($res->num_rows > 0) { 
     while($row = $res->fetch_assoc()) {
-        if ($row["lånid"] == NULL){
+        if ($row["lånid"] != NULL){
             if ($ISBN == $row["ISBN"]){
                 $id = $row["BokId"];
                 $way = 1;
@@ -47,12 +49,11 @@ if ($res->num_rows > 0) {
     echo "big bug";
 }
 
-
-$free_ebok = "SELECT ebok.ISBN, ebok.eBokId, lån.lånid FROM ebok LEFT JOIN lån ON ebok.eBokId = lån.eBokId";
-$res = $conn->query($free_ebok);
+$ebok = "SELECT ebok.ISBN, ebok.eBokId, lån.lånid FROM ebok LEFT JOIN lån ON ebok.eBokId = lån.eBokId";
+$res = $conn->query($ebok);
 if ($res->num_rows > 0) { 
     while($row = $res->fetch_assoc()) {
-        if ($row["lånid"] == NULL){
+        if ($row["lånid"] != NULL){
             if ($ISBN == $row["ISBN"]){
                 $id = $row["eBokId"];
                 $way = 2;
@@ -65,12 +66,11 @@ if ($res->num_rows > 0) {
     echo "big bug";
 }
 
-
-$free_film = "SELECT film.ISBN, film.filmId, lån.lånid FROM film LEFT JOIN lån ON film.filmId = lån.filmId";
-$res = $conn->query($free_film);
+$film = "SELECT film.ISBN, film.filmId, lån.lånid FROM film LEFT JOIN lån ON film.filmId = lån.filmId";
+$res = $conn->query($film);
 if ($res->num_rows > 0) { 
     while($row = $res->fetch_assoc()) {
-        if ($row["lånid"] == NULL){
+        if ($row["lånid"] != NULL){
             if ($ISBN == $row["ISBN"]){
                 $id = $row["filmId"];
                 $way = 3;
@@ -87,11 +87,11 @@ echo $id. "<br>";
 echo $personid. "<br>";
 
 
-if(isset($_POST["lan"])){
+if(isset($_POST["gelan"])){
     
 
     if ($way == 1){
-        $sql = "INSERT INTO lån (bokid,personid,Datum_för_utlaning,Datum_för_aterlamning) VALUES ('$id', '$personid', '2012-12-03', '2013-01-09')";
+        $sql = "DELETE FROM lån WHERE $id = lån.Bokid AND $personid = lån.personid";
         if ($conn->query($sql)===TRUE){
             ?>
             <script>
@@ -104,7 +104,7 @@ if(isset($_POST["lan"])){
             }
     }
     elseif ($way == 2){
-        $sql = "INSERT INTO lån (ebokid,personid,Datum_för_utlaning,Datum_för_aterlamning) VALUES ('$id', '$personid', '2012-12-03','2013-01-09')";
+        $sql = "DELETE FROM lån WHERE $id = lån.eBokid AND $personid = lån.personid";
         if ($conn->query($sql)===TRUE){
             ?>
             <script>
@@ -117,7 +117,7 @@ if(isset($_POST["lan"])){
             }
     }
     elseif ($way == 3){
-        $sql = "INSERT INTO lån (filmid,personid,Datum_för_utlaning,Datum_för_aterlamning) VALUES ('$id', '$personid', '2012-12-03','2013-01-09')";
+        $sql = "DELETE FROM lån WHERE $id = lån.filmId AND $personid = lån.personid";
         if ($conn->query($sql)===TRUE){
             ?>
             <script>
@@ -130,7 +130,7 @@ if(isset($_POST["lan"])){
             }
     }
     else{
-        echo "oh no". $sql. "<br>". $conn->error;
+        echo "oh no";
     }
     
 }
