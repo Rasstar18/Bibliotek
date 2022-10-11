@@ -28,11 +28,19 @@
                 <input type = "text" id ="isbn" name  = "isbn" />  
             </p>  
             <p>  
-                <label> Author ID: </label>  
+                <label> Author ID #1: </label>  
                 <input type = "text" id ="författare" name  = "författare" />  
             </p>  
+            <p>  
+                <label> Author ID #2: </label>  
+                <input type = "text" id ="författare2" name  = "författare2" />  
+            </p>  
+            <p>  
+                <label> Author ID #3: </label>  
+                <input type = "text" id ="författare3" name  = "författare3" />  
+            </p>
             <p>     
-                <input type =  "submit" id = "btn" value = "Add new book" />  
+                <input type =  "submit" id = "btn" value = "Add new e-bok" />  
             </p>
         </form>  
     </div>  
@@ -45,6 +53,8 @@
                 var ut=document.f1.utgivning.value;  
                 var is=document.f1.isbn.value;  
                 var fi=document.f1.författare.value;
+                var fi2=document.f1.författare2.value;
+                var fi3=document.f1.författare3.value;
                 if(id.length=="" || ge.length=="" || pt.length=="" || ut.length=="" || is.length=="" || fi.length=="") {  
                     alert("At least one of the fields are empty");  
                     return false;  
