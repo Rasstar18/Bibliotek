@@ -134,14 +134,14 @@ if ($perid->num_rows > 0){
       echo "Dina lånade boker";
       echo "<br>";
       echo "<br>";
-      $bok = "SELECT bok.titel, bok.BokId, lån.lånid FROM bok LEFT JOIN lån ON bok.BokId = lån.BokId AND $personid = lån.personid";
+      $bok = "SELECT bok.titel, bok.BokId, lån.lånid, bok.ISBN FROM bok LEFT JOIN lån ON bok.BokId = lån.BokId AND $personid = lån.personid";
       $res = $conn->query($bok);
       $result = $conn->query($bok);
 
       if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
           if ($row["lånid"] != NULL){
-            echo $row["titel"]. "<br>";
+            echo $row["titel"]. "<br>". $row["ISBN"]. "<br>". "<br>";
           }
         }
       } else {
@@ -156,7 +156,7 @@ if ($perid->num_rows > 0){
       echo "Dina lånade eboker";
       echo "<br>";
       echo "<br>";
-      $ebok = "SELECT ebok.titel, ebok.eBokId, lån.lånid FROM ebok LEFT JOIN lån ON ebok.eBokId = lån.eBokId AND $personid = lån.personid";
+      $ebok = "SELECT ebok.titel, ebok.eBokId, lån.lånid, ebok.ISBN FROM ebok LEFT JOIN lån ON ebok.eBokId = lån.eBokId AND $personid = lån.personid";
       $res = $conn->query($ebok);
       $result = $conn->query($ebok);
 
@@ -164,7 +164,7 @@ if ($perid->num_rows > 0){
       if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
           if ($row["lånid"] != NULL){
-            echo $row["titel"]. "<br>";
+            echo $row["titel"]. "<br>". $row["ISBN"]. "<br>". "<br>";
           }
         }
       } else {
@@ -179,7 +179,7 @@ if ($perid->num_rows > 0){
       echo "Dina lånade filmer";
       echo "<br>";
       echo "<br>";
-      $film = "SELECT film.titel, film.filmId, lån.lånid FROM film LEFT JOIN lån ON film.filmId = lån.filmId AND $personid = lån.personid";
+      $film = "SELECT film.titel, film.filmId, lån.lånid, film.ISBN FROM film LEFT JOIN lån ON film.filmId = lån.filmId AND $personid = lån.personid";
       $res = $conn->query($film);
       $result = $conn->query($film);
 
@@ -187,7 +187,7 @@ if ($perid->num_rows > 0){
       if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
           if ($row["lånid"] != NULL){
-            echo $row["titel"]. "<br>";
+            echo $row["titel"]. "<br>". $row["ISBN"]. "<br>". "<br>";
           }
         }
       } else {
@@ -199,7 +199,7 @@ if ($perid->num_rows > 0){
     <div id = "who">
       <?php
       $username = $_SESSION['user'];
-      echo "Hej ". $username
+      echo $username
       ?>
     </div>
 
