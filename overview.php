@@ -49,7 +49,9 @@ if ($perid->num_rows > 0){
 
     <div id = "rak">
       <?php
+      echo "<div class='text'>";
       echo "Antal boker ";
+      echo "</div>";
       echo "<br>";
       $clac = "SELECT bok.titel, bok.ISBN, COUNT(*) FROM bok GROUP BY bok.ISBN";   
       $rescalc = $conn->query($clac);
@@ -68,10 +70,14 @@ if ($perid->num_rows > 0){
       
             if($anticalc->num_rows > 0){
                 $antirow = $anticalc->fetch_assoc();
+                echo "<div class='media'>";
                 echo "Titel: " . $row["titel"].  " :Antal: ". $row["COUNT(*)"] - $antirow["COUNT(*)"]. "<br>". " ISBN: ". $row["ISBN"] . "<br>". "<br>";
-            }
+                echo "</div>";
+              }
             else{
+              echo "<div class='media'>";
               echo "Titel: " . $row["titel"].  " :Antal: ". $row["COUNT(*)"]. "<br>". " ISBN: ". $row["ISBN"] . "<br>". "<br>";
+              echo "</div>";
             }
             
             
@@ -82,7 +88,9 @@ if ($perid->num_rows > 0){
       echo "<br>";
       echo "<br>";
       
+      echo "<div class='text'>";
       echo "Antal E-boker ";
+      echo "</div>";
       echo "<br>";
       $clac = "SELECT ebok.titel, ebok.ISBN, COUNT(*) FROM ebok GROUP BY ebok.ISBN";   
       $rescalc = $conn->query($clac);
@@ -99,10 +107,14 @@ if ($perid->num_rows > 0){
       
           if($anticalc->num_rows > 0){
               $antirow = $anticalc->fetch_assoc();
+              echo "<div class='media'>";
               echo "Titel: " . $row["titel"]. " :Antal: ". $row["COUNT(*)"] - $antirow["COUNT(*)"]. "<br>". " ISBN: ". $row["ISBN"] . "<br>". "<br>";
-          }
+              echo "</div>";
+            }
           else{
+            echo "<div class='media'>";
             echo "Titel: " . $row["titel"]. " :Antal: ". $row["COUNT(*)"]. "<br>". " ISBN: ". $row["ISBN"] . "<br>". "<br>";
+            echo "</div>";
           }
           
           
@@ -113,14 +125,18 @@ if ($perid->num_rows > 0){
       echo "<br>";
       echo "<br>";
       
+      echo "<div class='text'>";
       echo "Antal filmer ";
+      echo "</div>";
       echo "<br>";
       $clac = "SELECT f.*, sum(case when l.Lånid is null then 1 else 0 end) inne FROM `film` f left outer join lån l on l.Filmid = f.filmid GROUP BY f.ISBN   ";   
       $rescalc = $conn->query($clac);
       
       if ($rescalc->num_rows > 0) {
           while($row = $rescalc->fetch_assoc()) {
+              echo "<div class='media'>";
               echo "Titel: " . $row["Titel"]. " :Antal: ". $row["inne"]. "<br>". " ISBN: ". $row["ISBN"]. "<br>". "<br>";
+              echo "</div>";
           }
       } else {
           echo "no thing in bas";
@@ -131,7 +147,9 @@ if ($perid->num_rows > 0){
     <div id = "boklon">
       <?php
 
+      echo "<div class='text'>";
       echo "Dina lånade boker";
+      echo "</div>";
       echo "<br>";
       echo "<br>";
       $bok = "SELECT bok.titel, bok.BokId, lån.lånid, bok.ISBN FROM bok LEFT JOIN lån ON bok.BokId = lån.BokId AND $personid = lån.personid";
@@ -141,11 +159,15 @@ if ($perid->num_rows > 0){
       if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
           if ($row["lånid"] != NULL){
+            echo "<div class='medialon'>";
             echo $row["titel"]. "<br>". $row["ISBN"]. "<br>". "<br>";
+            echo "</div>";
           }
         }
       } else {
+        echo "<div class='medialon'>";
         echo "alla fria";
+        echo "</div>";
       }
 
       ?>
@@ -153,7 +175,9 @@ if ($perid->num_rows > 0){
     <div id = "eboklon">
       <?php
 
+      echo "<div class='text'>";
       echo "Dina lånade eboker";
+      echo "</div>";
       echo "<br>";
       echo "<br>";
       $ebok = "SELECT ebok.titel, ebok.eBokId, lån.lånid, ebok.ISBN FROM ebok LEFT JOIN lån ON ebok.eBokId = lån.eBokId AND $personid = lån.personid";
@@ -164,11 +188,15 @@ if ($perid->num_rows > 0){
       if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
           if ($row["lånid"] != NULL){
+            echo "<div class='medialon'>";
             echo $row["titel"]. "<br>". $row["ISBN"]. "<br>". "<br>";
+            echo "</div>";
           }
         }
       } else {
+        echo "<div class='medialon'>";
         echo "alla fria";
+        echo "</div>";
       }
 
       ?>
@@ -176,7 +204,9 @@ if ($perid->num_rows > 0){
     <div id = "filmlon">
       <?php
 
+      echo "<div class='text'>";
       echo "Dina lånade filmer";
+      echo "</div>";
       echo "<br>";
       echo "<br>";
       $film = "SELECT film.titel, film.filmId, lån.lånid, film.ISBN FROM film LEFT JOIN lån ON film.filmId = lån.filmId AND $personid = lån.personid";
@@ -187,11 +217,15 @@ if ($perid->num_rows > 0){
       if ($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
           if ($row["lånid"] != NULL){
+            echo "<div class='medialon'>";
             echo $row["titel"]. "<br>". $row["ISBN"]. "<br>". "<br>";
+            echo "</div>";
           }
         }
       } else {
+        echo "<div class='medialon'>";
         echo "alla fria";
+        echo "</div>";
       }
 
       ?>
@@ -203,15 +237,29 @@ if ($perid->num_rows > 0){
       ?>
     </div>
 
-    <form  id = "lonbutton" method = "post" action="lan.php">
+    <div id="button1">
+    <?php
+      echo "<div class='text'>";
+      echo "Låna";
+      echo "</div>";
+    ?>
+    <form  class = "button" method = "post" action="lan.php">
         <input type="hidden" name="lan">
         <input type="text" name="ISBN" placeholder="ISBN av vad du vill låna"><br><br>
         <input type="submit" />
     </form>
-    <form  id = "gebutton" method = "post" action="gelan.php">
+    </div>
+    <div id="button2">
+    <?php
+      echo "<div class='text'>";
+      echo "Returnera";
+      echo "</div>";
+    ?>
+    <form  class = "button" method = "post" action="gelan.php">
         <input type="hidden" name="gelan">
         <input type="text" name="ISBN" placeholder="ISBN av vad du vill lämna tillbacka"><br><br>
         <input type="submit" />
     </form>
+    </div>
 </body>
 </html>
