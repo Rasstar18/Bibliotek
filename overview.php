@@ -99,10 +99,10 @@ if ($perid->num_rows > 0){
       
           if($anticalc->num_rows > 0){
               $antirow = $anticalc->fetch_assoc();
-              echo "Titel: " . $row["titel"]. " ISBN: ". $row["ISBN"] . " antal: ". $row["COUNT(*)"] - $antirow["COUNT(*)"].  "<br>";
+              echo "Titel: " . $row["titel"]. " :Antal: ". $row["COUNT(*)"] - $antirow["COUNT(*)"]. "<br>". " ISBN: ". $row["ISBN"] . "<br>". "<br>";
           }
           else{
-            echo "Titel: " . $row["titel"]. " ISBN: ". $row["ISBN"] . " antal: ". $row["COUNT(*)"].  "<br>";
+            echo "Titel: " . $row["titel"]. " :Antal: ". $row["COUNT(*)"]. "<br>". " ISBN: ". $row["ISBN"] . "<br>". "<br>";
           }
           
           
@@ -120,7 +120,7 @@ if ($perid->num_rows > 0){
       
       if ($rescalc->num_rows > 0) {
           while($row = $rescalc->fetch_assoc()) {
-              echo "Titel: " . $row["Titel"]. " ISBN: ". $row["ISBN"]. " antal: ". $row["inne"]. "<br>";
+              echo "Titel: " . $row["Titel"]. " :Antal: ". $row["inne"]. "<br>". " ISBN: ". $row["ISBN"]. "<br>". "<br>";
           }
       } else {
           echo "no thing in bas";
