@@ -36,23 +36,7 @@
                        <input type="submit" name="submit" value="Sök"><br>
         </div>
     </form>
-<<<<<<< HEAD:Index.php
-    <form action="Index.php" method="POST">
-=======
     <form action="Main.php" method="POST">
-        <div id="ebok">
-        Sök efter e-bok: <input type="text" name="ebok">
-                         <input type="submit" name="submit2" value="Sök"><br>
-        </div>
-    </form>
-    <form action="Main.php" method="POST">
-        <div id="film">
-        Sök efter film: <input type="text" name="film">
-                        <input type="submit" name="submit3" value="Sök"><br>
-        </div>
-    </form>
-    <form action="Main.php" method="POST">
->>>>>>> d9dc8faf0d88cfd9097f1b0341214d0f98546f68:Main.php
         <div id="skapare">
         Sök efter författare/regissör: <input type="text" name="skapare">
                                        <input type="submit" name="submit4"><br>
@@ -201,38 +185,70 @@
                 $result2 = $conn->query($sql2);
                 $result3 = $conn->query($sql3);
                 if($result->num_rows > 0){
+                    $skapare = "";
                     while($row = $result->fetch_assoc()){
-                        echo "<div class='sak'>";
-                        echo "Titel: ".$row["Titel"]."<br>";
-                        echo "Mediatyp: ".$row["Media"]."<br>";
-                        echo "Genre: ".$row["Genre"]."<br>";
-                        echo "Utgivningsår: ".$row["Utgivningsar"]."<br>";
-                        echo "Skapare: ".$row["Namn"]."<br>";
-                        
-                        echo "</div>";
+                        $title = $row["Titel"];
+                        $sk = $row["Namn"].", ";
+                        $skapare.="".$sk;
+                        $Mediatyp = $row["Media"];
+                        $Genre = $row["Genre"];
+                        $Antal_sidor = $row["Antal_sidor"];
+                        $Utgivningsar = $row["Utgivningsar"];
+                        $ISBN = $row["ISBN"];
                     }
+                    echo "<div class='sak'>";
+                        echo "Titel: ".$title."<br>";
+                        echo "Mediatyp: ".$Mediatyp."<br>";
+                        echo "Genre: ".$Genre."<br>";
+                        echo "Antal sidor: ".$Antal_sidor." sidor"."<br>";
+                        echo "Utgivningsår: ".$Utgivningsar."<br>";
+                        echo "ISBN: ".$ISBN."<br>";
+                        echo "Skapare: ".$skapare."<br>";
+                    echo "</div>";
                 }
                 if($result2->num_rows > 0){
+                    $skapare = "";
                     while($row2 = $result2->fetch_assoc()){
-                        echo "<div class='sak'>";
-                        echo "Titel: ".$row2["Titel"]."<br>";
-                        echo "Mediatyp: ".$row2["Media"]."<br>";
-                        echo "Genre: ".$row2["Genre"]."<br>";
-                        echo "Utgivningsår: ".$row2["Utgivningsar"]."<br>";
-                        echo "Skapare: ".$row2["Namn"]."<br>";
-                        echo "</div>";
+                        $title = $row2["Titel"];
+                        $sk = $row2["Namn"].", ";
+                        $skapare.="".$sk;
+                        $Mediatyp = $row2["Media"];
+                        $Genre = $row2["Genre"];
+                        $Speltid = $row2["Speltid"];
+                        $Utgivningsar = $row2["Utgivningsar"];
+                        $ISBN = $row2["ISBN"];
                     }
+                    echo "<div class='sak'>";
+                        echo "Titel: ".$title."<br>";
+                        echo "Mediatyp: ".$Mediatyp."<br>";
+                        echo "Genre: ".$Genre."<br>";
+                        echo "Speltid: ".$Speltid." min"."<br>";
+                        echo "Utgivningsår: ".$Utgivningsar."<br>";
+                        echo "ISBN: ".$ISBN."<br>";
+                        echo "Skapare: ".$skapare."<br>";
+                    echo "</div>";
                 }
                 if($result3->num_rows > 0){
+                    $skapare = "";
                     while($row3 = $result3->fetch_assoc()){
-                        echo "<div class='sak'>";
-                        echo "Titel: ".$row3["Titel"]."<br>";
-                        echo "Mediatyp: ".$row3["Media"]."<br>";
-                        echo "Genre: ".$row3["Genre"]."<br>";
-                        echo "Utgivningsår: ".$row3["Utgivningsar"]."<br>";
-                        echo "Skapare: ".$row3["Namn"]."<br>";
-                        echo "</div>";
+                        $title = $row3["Titel"];
+                        $sk = $row3["Namn"].", ";
+                        $skapare.="".$sk;
+                        $Mediatyp = $row3["Media"];
+                        $Genre = $row3["Genre"];
+                        $Speltid = $row3["Speltid"];
+                        $Utgivningsar = $row3["Utgivningsar"];
+                        $ISBN = $row3["ISBN"];
                     }
+                    echo "<div class='sak'>";
+                        echo "Titel: ".$title."<br>";
+                        echo "Mediatyp: ".$Mediatyp."<br>";
+                        echo "Genre: ".$Genre."<br>";
+                        echo "Speltid: ".$Speltid." min"."<br>";
+                        echo "Utgivningsår: ".$Utgivningsar."<br>";
+                        echo "ISBN: ".$ISBN."<br>";
+                        echo "Skapare: ".$skapare."<br>";
+                    echo "</div>";
                 }else{
                     echo "0 results";
                 }
