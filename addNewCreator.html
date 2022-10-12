@@ -1,0 +1,30 @@
+<html>  
+<head>  
+    <title>Add book system</title>
+    <link rel = "stylesheet" type = "text/css" href = "style.css">   
+</head>  
+<body>  
+    <div id = "frm">  
+        <h1>New author/director</h1>  
+        <form name="f1" action = "addCreatorToSystem.php" onsubmit = "return validation()" method = "POST">  
+            <p>  
+                <label> Name: </label>  
+                <input type = "text" id ="name" name  = "name" />  
+            </p>
+            <p>     
+                <input type =  "submit" id = "btn" value = "Add new author/director" />  
+            </p>
+        </form>  
+    </div>  
+    <script>  
+            function validation()  
+            {  
+                var id=document.f1.name.value;
+                if(id.length=="") {  
+                    alert("The name field is empty");  
+                    return false;  
+                }                         
+            }  
+        </script>  
+</body>     
+</html>
