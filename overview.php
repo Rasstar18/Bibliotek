@@ -191,7 +191,7 @@ if ($perid->num_rows > 0){
             echo "<div class='medialon'>";
             echo $row["titel"]. "<br>". $row["ISBN"]. "<br>". "<br>";
             echo "</div>";
-          }
+          } 
         }
       } else {
         echo "<div class='medialon'>";
